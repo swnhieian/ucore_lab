@@ -1,0 +1,32 @@
+{
+    "plugins": [
+        "autocover","grivs","duoshuo","ga"
+    ],
+    "pluginsConfig": {
+        "autocover": {
+            "title": "ucore lab guide",
+            "author": "Chen, Yu",
+            "font": {
+                "size": null,
+                "family": "Impact",
+                "color": "#FFF"
+            },
+            "size": {
+                "w": 1800,
+                "h": 2360
+            },
+            "background": {
+                "color": "#09F"
+            }
+        },
+        "grivs": {
+        },
+        "duoshuo": {
+            "short_name": "ucore_doc",
+            "theme": "default"
+        },
+        "ga": {
+            "token": "UA-39088953-8"
+        }        
+    }
+}
