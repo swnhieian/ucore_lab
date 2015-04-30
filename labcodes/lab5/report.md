@@ -15,12 +15,12 @@ tf->tf_eflags |= FL_IF;                       //为trapframe设置elfags，使�
 ```
 2 进程的执行过程
 ---
-　　首先，ucore在内核态中创建了一个新的内核线程user_main，当该线程被schedule调度函数选中并开始占用CPU执行时，便开始了用户进程的创建过程。
-　　执行user_main时，将其中的KERNEL_EXECVE等宏的展开，可以看到实际是执行int系统调用中断，系统调用编号设置为SYS_exec,设置的参数为待执行的用户态进程信息。这是中断系统起作用，硬件通过查找idt表和系统调用表，执行syscall.c中的sys_exec函数，在这个函数中最终执行do_execve函数。
-　　在do_execve函数中，首先清空原内核线程的内存，然后执行load_icode。
-　　在load_icode中先后经历了分配内存、建立页表、复制数据、代码，建立用户堆栈等等后，设置了trapframe，这里把cs，ds，es，ss，sp，eip等进行赋值。
-　　load_icode返回后，do_execve设置名字后也返回。
-　　do_execve函数返回后，就到了系统调用的返回阶段，ucore会弹出寄存器的值执行iret，这时根据load_icode中设置的trapframe的内容，完成了cs ds等段寄存器以及sp栈指针到用户态的转变，并且由于eip保存的是用户进程代码中的entry程序入口的地址，那么在iret后执行的就应该是eip指向的代码，即执行进程的第一条指令。
+　　首先，ucore在内核态中创建了一个新的内核线程user_main，当该线程被schedule调度函数选中并开始占用CPU执行时，便开始了用户进程的创建过程。  
+　　执行user_main时，将其中的KERNEL_EXECVE等宏的展开，可以看到实际是执行int系统调用中断，系统调用编号设置为SYS_exec,设置的参数为待执行的用户态进程信息。这是中断系统起作用，硬件通过查找idt表和系统调用表，执行syscall.c中的sys_exec函数，在这个函数中最终执行do_execve函数。  
+　　在do_execve函数中，首先清空原内核线程的内存，然后执行load_icode。  
+　　在load_icode中先后经历了分配内存、建立页表、复制数据、代码，建立用户堆栈等等后，设置了trapframe，这里把cs，ds，es，ss，sp，eip等进行赋值。  
+　　load_icode返回后，do_execve设置名字后也返回。  
+　　do_execve函数返回后，就到了系统调用的返回阶段，ucore会弹出寄存器的值执行iret，这时根据load_icode中设置的trapframe的内容，完成了cs ds等段寄存器以及sp栈指针到用户态的转变，并且由于eip保存的是用户进程代码中的entry程序入口的地址，那么在iret后执行的就应该是eip指向的代码，即执行进程的第一条指令。  
 　　总体流程可表示如下：
 ```
 user_main
