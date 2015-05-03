@@ -34,7 +34,8 @@ if ((next = sched_class_pick_next()) != NULL) {
 //并将其从队列中删除
     sched_class_dequeue(next);
 }
-//如果该进程不存在（队列为空），那么切换到idleproc进程不断循环直到当前进程可以调度      if (next == NULL) {
+//如果该进程不存在（队列为空），那么切换到idleproc进程不断循环直到当前进程可以调度 
+if (next == NULL) {
     next = idleproc;
 }
 //进程运行次数+1
