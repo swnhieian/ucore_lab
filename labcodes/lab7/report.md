@@ -37,7 +37,7 @@ static __noinline uint32_t __down(semaphore_t *sem, uint32_t wait_state) {
     return 0;
 }
 ```
-+` __up`具体实现如下所示：
++ ` __up`具体实现如下所示：
 ```
 static __noinline void __up(semaphore_t *sem, uint32_t wait_state) {
     bool intr_flag;
