@@ -7,7 +7,7 @@
 #define USE_SKEW_HEAP 1
 
 /* You should define the BigStride constant here*/
-/* LAB6: YOUR CODE */
+/* LAB6: 2012011367 */
 #define BIG_STRIDE 0x7FFFFFFF/* you should give a value, and is ??? */
 
 /* The compare function for two skew_heap_node_t's and the
