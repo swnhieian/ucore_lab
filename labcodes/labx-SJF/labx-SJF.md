@@ -8,9 +8,9 @@ LabX 实现短作业优先（SJF）调度算法
 
 2 设计思路
 ---
-　　运用lab6中提供的调度算法的框架，在`struct proc`中定义SJF_time成员变量，用于表示进程的预计完成时间，并置初始值为无符号整形的最大值。
-　　需要给用户态程序提价一个设置进程预计完成时间的系统调用，这里使用了`SJFfork(unsigned int)`函数，在完成fork的同时设置SJF_time的值。这里并不能像`lab6_set_priority`一样在进程开始执行后设置时间，因为SJF调度算法会将进程执行到结束为止，而一旦进程开始执行，说明已经被调度算法选中，此时再改变时间已经没有任何作用。
-　　进程调度中仍要实现如下几个函数(提供了使用skew heap和不使用两种机制)：
+　　运用lab6中提供的调度算法的框架，在`struct proc`中定义SJF_time成员变量，用于表示进程的预计完成时间，并置初始值为无符号整形的最大值。  
+　　需要给用户态程序提价一个设置进程预计完成时间的系统调用，这里使用了`SJFfork(unsigned int)`函数，在完成fork的同时设置SJF_time的值。这里并不能像`lab6_set_priority`一样在进程开始执行后设置时间，因为SJF调度算法会将进程执行到结束为止，而一旦进程开始执行，说明已经被调度算法选中，此时再改变时间已经没有任何作用。  
+　　进程调度中仍要实现如下几个函数(提供了使用skew heap和不使用两种机制)：  
 + `SJF_init`和stride相同
 + `SJF_enqueue`、`SJF_dequeue`和stride相同，唯一不同的是比较函数的不同
 + `proc_SJF_comp_f`两个进程的比较函数，比较SJF_time的大小
@@ -19,7 +19,7 @@ LabX 实现短作业优先（SJF）调度算法
 
 3 实验结果
 ---
-　　代码中的SJFtest文件是对SJF调度算法的测试，其中使用SJFfork创建了五个时间依次递减的进程（其中包括预计时间不足被进程杀死的），直接运行`make qemu`可以得到结果如下：
+　　代码中的SJFtest文件是对SJF调度算法的测试，其中使用SJFfork创建了五个时间依次递减的进程（其中包括预计时间不足被内核杀死的），直接运行`make qemu`或者`make run-SJFtest`可以得到结果如下：
 ```
 kernel_execve: pid = 2, name = "SJFtest".
 main: fork ok,now need to wait pids.
